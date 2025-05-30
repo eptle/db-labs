@@ -12,7 +12,7 @@ CREATE TABLE departments (
 -- Таблица Профессия
 CREATE TABLE professions (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    department_id INT NOT NULL,
+    department_id INT,
     title VARCHAR(255) NOT NULL
 );
 
@@ -20,7 +20,7 @@ CREATE TABLE professions (
 CREATE TABLE employees (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     profession_id INT NOT NULL,
-    department_id INT NOT NULL,
+    department_id INT,
     first_name VARCHAR(255) NOT NULL,
     second_name VARCHAR(255) NOT NULL,
     middle_name VARCHAR(255) NOT NULL
@@ -74,11 +74,11 @@ ALTER TABLE departments
     ADD FOREIGN KEY (manager_id) REFERENCES employees(id);
 
 ALTER TABLE professions
-    ADD FOREIGN KEY (department_id) REFERENCES departments(id);
+    ADD FOREIGN KEY (department_id) REFERENCES departments(id) ON DELETE CASCADE;
 
 ALTER TABLE employees
     ADD FOREIGN KEY (profession_id) REFERENCES professions(id),
-    ADD FOREIGN KEY (department_id) REFERENCES departments(id);
+    ADD FOREIGN KEY (department_id) REFERENCES departments(id) ON DELETE CASCADE;
 
 ALTER TABLE questions
     ADD FOREIGN KEY (profession_id) REFERENCES professions(id);

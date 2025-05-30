@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main role="main" class="inner cover">
+    <div class="container mt-5">
+        <h2 class="mb-4">Создание нового вопроса</h2>
+        <form method="POST" action="{{ url_for('create_question') }}">
+            <div class="mb-3">
+                <label for="question" class="form-label">Вопрос</label>
+                <textarea class="form-control" id="question" name="question" rows="3" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="answer" class="form-label">Ответ</label>
+                <textarea class="form-control" id="answer" name="answer" rows="3" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Профессии</label>
+                <div class="form-check">
+                    {% for profession in professions %}
+                        <input class="form-check-input" type="checkbox" name="professions" value="{{ profession.id }}" id="prof{{ profession.id }}">
+                        <label class="form-check-label" for="prof{{ profession.id }}">
+                            {{ profession.profession }}
+                        </label><br>
+                    {% endfor %}
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success">Создать вопрос</button>
+        </form>
+    </div>
+</main>
+{% endblock %}
